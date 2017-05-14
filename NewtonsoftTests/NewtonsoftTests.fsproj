@@ -55,8 +55,11 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Content Include="packages.config" />
+    <Content Include="Install-package.txt" />
     <Compile Include="Product.fs" />
+    <Compile Include="Post.fs" />
     <Compile Include="JsonConvertTest.fs" />
+    <Compile Include="LINQ2JSON.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

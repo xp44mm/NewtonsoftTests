@@ -1,4 +1,4 @@
-﻿namespace jsonnetTests
+﻿namespace NewtonsoftTests
 
 open System
 

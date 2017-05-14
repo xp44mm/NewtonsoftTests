@@ -1,0 +1,6 @@
+﻿install-package fsharp.core
+Install-Package Newtonsoft.Json
+Install-Package xunit
+Install-Package xunit.runner.visualstudio
+
+

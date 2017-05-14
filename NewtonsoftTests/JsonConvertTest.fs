@@ -1,9 +1,9 @@
-﻿namespace jsonnetTests
+﻿namespace NewtonsoftTests
 
 open Xunit
 open Xunit.Abstractions
 
-open System.Linq 
+open System.Linq
 open System
 open Newtonsoft.Json
 
