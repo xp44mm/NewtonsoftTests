@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NewtonsoftTests", "NewtonsoftTests\NewtonsoftTests.fsproj", "{C1767495-0B24-4A42-AF3D-627650D197CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1767495-0B24-4A42-AF3D-627650D197CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1767495-0B24-4A42-AF3D-627650D197CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1767495-0B24-4A42-AF3D-627650D197CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1767495-0B24-4A42-AF3D-627650D197CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
