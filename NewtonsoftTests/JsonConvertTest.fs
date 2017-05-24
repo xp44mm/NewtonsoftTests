@@ -15,7 +15,7 @@ type JsonConvertTest(output : ITestOutputHelper) =
         product.Price <- 3.99M
         product.Sizes <- [| "Small"; "Medium"; "Large" |]
 
-    let json = "{\"Name\":\"Apple\",\"ExpiryDate\":\"2008-12-28T00:00:00\",\"Price\":3.99,\"Sizes\":[\"Small\",\"Medium\",\"Large\"]}"
+    let json = """{"Name":"Apple","ExpiryDate":"2008-12-28T00:00:00","Price":3.99,"Sizes":["Small","Medium","Large"]}"""
 
     [<Fact>]
     member this.SerializeObject() = 

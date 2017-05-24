@@ -8,8 +8,9 @@ open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 open System
 
+///LINQ to JSON
 type LINQ2JSONTest(output : ITestOutputHelper) = 
-
+    ///Using LINQ for JSON
     [<Fact>]
     member this.overview() = 
         let o = JObject.Parse("""{
@@ -20,17 +21,17 @@ type LINQ2JSONTest(output : ITestOutputHelper) =
                   ]
                 }""");
 
-        let cpu = string o.["CPU"]
-        Assert.Equal("Intel",cpu)
+        let cpu = o.["CPU"]
+        Assert.Equal("Intel",string cpu)
 
-        let firstDrive = string o.["Drives"].[0]
-        Assert.Equal("DVD read/writer",firstDrive)
-
+        let firstDrive = o.["Drives"].[0]
+        Assert.Equal("DVD read/writer",string firstDrive)
 
         let allDrives = o.["Drives"].Select(fun t -> string t).ToArray()
         Assert.Equal<string[]>([|"DVD read/writer";"500 gigabyte hard drive"|],allDrives)
+    (*Parsing JSON*)
 
-
+    /// Parsing a JSON Object from text
     [<Fact>]
     member this.ParsingJSONObject() = 
         let json = """{
@@ -42,9 +43,13 @@ type LINQ2JSONTest(output : ITestOutputHelper) =
         }"""
 
         let o = JObject.Parse(json)
-        output.WriteLine(sprintf "%A" o)
+        //output.WriteLine(sprintf "%A" o)
 
+        let cpu = o.["CPU"]
+        Assert.Equal("Intel",string cpu)
+        
 
+    /// Parsing a JSON Array from text
     [<Fact>]
     member this.ParsingJSONArray() = 
         let json = """[
@@ -54,46 +59,65 @@ type LINQ2JSONTest(output : ITestOutputHelper) =
         ]"""
 
         let a = JArray.Parse(json)
-        output.WriteLine(sprintf "%A" a)
+        //output.WriteLine(sprintf "%A" a)
 
+        let item = a.[0]
+        Assert.Equal("Small",string item)
+
+    (*Creating JSON*)
+
+
+    /// Manually Creating JSON
     [<Fact>]
     member this.CreatingJSON() = 
-        let array = new JArray()
-        let text = new JValue("Manual text")
-        let date = new JValue(new DateTime(2000, 5, 23))
+        let array = JArray()
+        let text = JValue("Manual text")
+        let date = JValue(DateTime(2000, 5, 23))
 
         array.Add(text)
         array.Add(date)
 
-        let json = array.ToString()
+        let json = array.ToString(Formatting.None)
+        Assert.Equal("""["Manual text","2000-05-23T00:00:00"]""",json)
 
-        output.WriteLine(json)
 
+    /// Creating JSON Declaratively
     [<Fact>]
     member this.CreatingJSONDeclaratively() = 
-        let posts = [| new Post()|]
+        let posts = [| Post()|]
 
         let rss =
-            new JObject(
-                new JProperty("channel",
-                    new JObject(
-                        new JProperty("title", "James Newton-King"),
-                        new JProperty("link", "http://james.newtonking.com"),
-                        new JProperty("description", "James Newton-King's blog."),
-                        new JProperty("item",
-                            new JArray(
+            JObject(
+                JProperty("channel",
+                    JObject(
+                        JProperty("title", "James Newton-King"),
+                        JProperty("link", "http://james.newtonking.com"),
+                        JProperty("description", "James Newton-King's blog."),
+                        JProperty("item",
+                            JArray(
                                 posts
                                     .OrderBy(fun p -> p.Title)
                                     .Select(fun p ->
-                                        new JObject(
-                                            new JProperty("title", p.Title),
-                                            new JProperty("description", p.Description),
-                                            new JProperty("link", p.Link),
-                                            new JProperty("category",
-                                                new JArray(
-                                                    p.Categories.Select(fun c -> new JValue(c)))))))))));
+                                        JObject(
+                                            JProperty("title", p.Title),
+                                            JProperty("description", p.Description),
+                                            JProperty("link", p.Link),
+                                            JProperty("category",
+                                                JArray(
+                                                    p.Categories.Select(fun c -> JValue(c)))))))
+                             )
+                        )
+                )
+            )
+        let json = rss.ToString(Formatting.None)
+        let expected ="""{"channel":{"title":"James Newton-King","link":"http://james.newtonking.com","description":"James Newton-King's blog.","item":[{"title":"","description":"","link":"","category":[]}]}}""" 
+        //output.WriteLine(json)
 
-        output.WriteLine(rss.ToString());
+        Assert.Equal(expected,json)
+
+    /// Creating JSON from an object
+    //JObject.FromObject
+
 
 
 
